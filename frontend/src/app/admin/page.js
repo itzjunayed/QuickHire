@@ -49,6 +49,7 @@ export default function AdminPage() {
     const errs = {};
     if (!form.title.trim()) errs.title = 'Required';
     if (!form.company.trim()) errs.company = 'Required';
+    if (!form.companyLogo.trim()) errs.companyLogo = 'Required';
     if (!form.location.trim()) errs.location = 'Required';
     if (!form.category) errs.category = 'Required';
     if (!form.description.trim()) errs.description = 'Required';
@@ -168,6 +169,23 @@ export default function AdminPage() {
                     className={`input-field ${formErrors.company ? 'border-red-400' : ''}`}
                   />
                   {formErrors.company && <p className="text-red-500 text-xs mt-1">{formErrors.company}</p>}
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-dark mb-2">Company Logo URL *</label>
+                  <input
+                    type="url"
+                    value={form.companyLogo}
+                    onChange={e => setField('companyLogo', e.target.value)}
+                    placeholder="e.g. https://example.com/logo.png"
+                    className={`input-field ${formErrors.companyLogo ? 'border-red-400' : ''}`}
+                  />
+                  {formErrors.companyLogo && <p className="text-red-500 text-xs mt-1">{formErrors.companyLogo}</p>}
+                  {form.companyLogo && (
+                    <div className="mt-2 flex items-center gap-2">
+                      <img src={form.companyLogo} alt="Company logo preview" className="h-8 w-8 object-cover rounded" onError={(e) => e.target.style.display = 'none'} />
+                      <span className="text-xs text-gray-500">Logo preview</span>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-dark mb-2">Location *</label>
@@ -335,8 +353,12 @@ export default function AdminPage() {
                         <tr key={job._id} className="hover:bg-gray-50 transition-colors">
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
-                              <div className={`w-10 h-10 ${bg} rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
-                                {job.company[0]}
+                              <div className={`w-10 h-10 ${bg} rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0 overflow-hidden`}>
+                                {job.companyLogo ? (
+                                  <img src={job.companyLogo} alt={job.company} className="w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+                                ) : (
+                                  job.company[0]
+                                )}
                               </div>
                               <div>
                                 <p className="font-bold text-dark text-sm">{job.title}</p>
@@ -389,7 +411,7 @@ export default function AdminPage() {
           <div className="bg-white rounded-2xl border border-gray-100 shadow-card overflow-hidden">
             {loading ? (
               <div className="p-8 space-y-4">
-                {Array(5).fill(0).map((_, i) => <div key={i} className="h-16 bg-gray-50 rounded-xl animate-pulse" />)}
+                {Array(5).fill(0).map((_, i) => <div key={i} className="h-20 bg-gray-50 rounded-xl animate-pulse" />)}
               </div>
             ) : applications.length === 0 ? (
               <div className="text-center py-16">
@@ -401,36 +423,57 @@ export default function AdminPage() {
                   <thead>
                     <tr className="border-b border-gray-50 bg-gray-50">
                       <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-6 py-4">Applicant</th>
-                      <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-4 hidden sm:table-cell">Job</th>
+                      <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-4 hidden sm:table-cell">Job Applied</th>
                       <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-4 hidden md:table-cell">Resume</th>
-                      <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-4 hidden lg:table-cell">Applied</th>
+                      <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-4 hidden lg:table-cell">Applied Date</th>
+                      <th className="text-right text-xs font-bold text-gray-400 uppercase tracking-wider px-6 py-4">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {applications.map(app => (
                       <tr key={app._id} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-4">
-                          <p className="font-bold text-dark text-sm">{app.name}</p>
-                          <p className="text-gray-400 text-xs">{app.email}</p>
+                          <div>
+                            <p className="font-bold text-dark text-sm">{app.name}</p>
+                            <p className="text-gray-400 text-xs break-all">{app.email}</p>
+                          </div>
                         </td>
                         <td className="px-4 py-4 hidden sm:table-cell">
                           {app.job ? (
                             <div>
-                              <p className="text-sm font-medium text-dark">{app.job.title}</p>
+                              <p className="text-sm font-semibold text-dark">{app.job.title}</p>
                               <p className="text-xs text-gray-400">{app.job.company}</p>
                             </div>
                           ) : <span className="text-gray-300 text-xs">Job deleted</span>}
                         </td>
                         <td className="px-4 py-4 hidden md:table-cell">
                           <a href={app.resumeLink} target="_blank" rel="noopener noreferrer"
-                            className="text-primary text-xs font-medium hover:underline flex items-center gap-1">
-                            View Resume →
+                            className="text-primary text-xs font-semibold hover:underline inline-flex items-center gap-1">
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2m0 0v-8m0 8a9 9 0 018.354-8.646" />
+                            </svg>
+                            View Resume
                           </a>
                         </td>
                         <td className="px-4 py-4 hidden lg:table-cell">
-                          <span className="text-gray-400 text-xs">
-                            {new Date(app.createdAt).toLocaleDateString()}
+                          <span className="text-gray-500 text-xs">
+                            {new Date(app.createdAt).toLocaleDateString('en-US', { 
+                              year: 'numeric', 
+                              month: 'short', 
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
                           </span>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <a href={app.resumeLink} target="_blank" rel="noopener noreferrer"
+                            className="text-primary text-xs font-semibold hover:underline flex justify-end gap-1 items-center">
+                            View
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </a>
                         </td>
                       </tr>
                     ))}

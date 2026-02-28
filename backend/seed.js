@@ -6,7 +6,7 @@ const jobs = [
   {
     title: 'Email Marketing',
     company: 'Revolut',
-    companyLogo: 'R',
+    companyLogo: 'https://www.logo.wine/a/logo/Revolut/Revolut-Icon-Logo.wine.svg',
     location: 'Madrid, Spain',
     category: 'Marketing',
     type: 'Full Time',
@@ -19,7 +19,7 @@ const jobs = [
   {
     title: 'Brand Designer',
     company: 'Dropbox',
-    companyLogo: 'D',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Dropbox_Icon.svg/960px-Dropbox_Icon.svg.png',
     location: 'San Francisco, US',
     category: 'Design',
     type: 'Full Time',
@@ -32,7 +32,7 @@ const jobs = [
   {
     title: 'Email Marketing',
     company: 'Pitch',
-    companyLogo: 'P',
+    companyLogo: 'https://images.seeklogo.com/logo-png/65/1/pitch-logo-png_seeklogo-653368.png',
     location: 'Berlin, Germany',
     category: 'Marketing',
     type: 'Full Time',
@@ -45,7 +45,7 @@ const jobs = [
   {
     title: 'Visual Designer',
     company: 'Blinkist',
-    companyLogo: 'B',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/en/c/ca/Blinkist_logo.png',
     location: 'Granada, Spain',
     category: 'Design',
     type: 'Full Time',
@@ -58,7 +58,7 @@ const jobs = [
   {
     title: 'Product Designer',
     company: 'ClassPass',
-    companyLogo: 'C',
+    companyLogo: 'https://i.logos-download.com/113517/28731-0ba15657094b9f63e31678e36e099654.svg/ClassPass_Logo_2018.svg?dl',
     location: 'Manchester, UK',
     category: 'Design',
     type: 'Full Time',
@@ -71,7 +71,7 @@ const jobs = [
   {
     title: 'Lead Engineer',
     company: 'Canva',
-    companyLogo: 'C',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/en/b/bb/Canva_Logo.svg',
     location: 'Ontario, Canada',
     category: 'Engineering',
     type: 'Full Time',
@@ -84,7 +84,7 @@ const jobs = [
   {
     title: 'Brand Strategist',
     company: 'GoDaddy',
-    companyLogo: 'G',
+    companyLogo: 'https://download.logo.wine/logo/GoDaddy/GoDaddy-Logo.wine.png',
     location: 'Marseille, France',
     category: 'Marketing',
     type: 'Full Time',
@@ -97,7 +97,7 @@ const jobs = [
   {
     title: 'Data Analyst',
     company: 'Twitter',
-    companyLogo: 'T',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg',
     location: 'San Diego, US',
     category: 'Technology',
     type: 'Full Time',
@@ -110,7 +110,7 @@ const jobs = [
   {
     title: 'Social Media Assistant',
     company: 'Nomad',
-    companyLogo: 'N',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Nomad_logo_2020.png',
     location: 'Paris, France',
     category: 'Marketing',
     type: 'Full Time',
@@ -123,7 +123,7 @@ const jobs = [
   {
     title: 'Brand Designer',
     company: 'Dropbox',
-    companyLogo: 'D',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Dropbox_Icon.svg/960px-Dropbox_Icon.svg.png',
     location: 'San Francisco, USA',
     category: 'Design',
     type: 'Full Time',
@@ -136,7 +136,7 @@ const jobs = [
   {
     title: 'Interactive Developer',
     company: 'Terraform',
-    companyLogo: 'T',
+    companyLogo: 'https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/4/terraform-icon-zp95oytvn5ci8lsub9sbeh.png/terraform-icon-tew8r4clf5ocvoyj0o05j.png?_a=DATAiZAAZAA0',
     location: 'Hamburg, Germany',
     category: 'Technology',
     type: 'Full Time',
@@ -149,7 +149,7 @@ const jobs = [
   {
     title: 'HR Manager',
     company: 'Packer',
-    companyLogo: 'P',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Green_Bay_Packers_logo.svg/250px-Green_Bay_Packers_logo.svg.png?_=20171105232203',
     location: 'Lucern, Switzerland',
     category: 'Human Resources',
     type: 'Full Time',
@@ -162,7 +162,7 @@ const jobs = [
   {
     title: 'Social Media Assistant',
     company: 'Netlify',
-    companyLogo: 'N',
+    companyLogo: 'https://images.seeklogo.com/logo-png/47/1/netlify-icon-logo-png_seeklogo-477950.png',
     location: 'Paris, France',
     category: 'Marketing',
     type: 'Full Time',
@@ -175,7 +175,7 @@ const jobs = [
   {
     title: 'Brand Designer',
     company: 'Maze',
-    companyLogo: 'M',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Labyrinth_1_%28from_Nordisk_familjebok%29.png/250px-Labyrinth_1_%28from_Nordisk_familjebok%29.png',
     location: 'San Francisco, USA',
     category: 'Design',
     type: 'Full Time',
@@ -188,7 +188,7 @@ const jobs = [
   {
     title: 'Interactive Developer',
     company: 'Udacity',
-    companyLogo: 'U',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/en/3/3b/Udacity_logo.png',
     location: 'Hamburg, Germany',
     category: 'Technology',
     type: 'Full Time',
@@ -201,7 +201,7 @@ const jobs = [
   {
     title: 'HR Manager',
     company: 'Webflow',
-    companyLogo: 'W',
+    companyLogo: 'https://dhygzobemt712.cloudfront.net/Mark/Mark_Logo_Blue.svg',
     location: 'Lucern, Switzerland',
     category: 'Human Resources',
     type: 'Full Time',
@@ -214,7 +214,7 @@ const jobs = [
   {
     title: 'UX Researcher',
     company: 'Figma',
-    companyLogo: 'F',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg',
     location: 'Remote',
     category: 'Design',
     type: 'Remote',
@@ -227,7 +227,7 @@ const jobs = [
   {
     title: 'Sales Manager',
     company: 'HubSpot',
-    companyLogo: 'H',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/HubSpot_Logo.svg',
     location: 'Dublin, Ireland',
     category: 'Sales',
     type: 'Full Time',
@@ -240,7 +240,7 @@ const jobs = [
   {
     title: 'Financial Analyst',
     company: 'Stripe',
-    companyLogo: 'S',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg',
     location: 'Dublin, Ireland',
     category: 'Finance',
     type: 'Full Time',
@@ -253,7 +253,7 @@ const jobs = [
   {
     title: 'Business Development Manager',
     company: 'Notion',
-    companyLogo: 'N',
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Notion-logo.svg/120px-Notion-logo.svg.png',
     location: 'Tokyo, Japan',
     category: 'Business',
     type: 'Full Time',

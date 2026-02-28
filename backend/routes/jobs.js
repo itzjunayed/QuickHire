@@ -16,6 +16,7 @@ const handleValidation = (req, res, next) => {
 router.get('/', [
   query('search').optional().trim(),
   query('category').optional().trim(),
+  query('company').optional().trim(),
   query('location').optional().trim(),
   query('type').optional().trim(),
   query('featured').optional().isBoolean(),
@@ -23,7 +24,7 @@ router.get('/', [
   query('limit').optional().isInt({ min: 1, max: 50 }),
 ], async (req, res) => {
   try {
-    const { search, category, location, type, featured, page = 1, limit = 12 } = req.query;
+    const { search, category, company, location, type, featured, page = 1, limit = 12 } = req.query;
     const filter = {};
 
     if (search) {
@@ -34,6 +35,7 @@ router.get('/', [
       ];
     }
     if (category) filter.category = category;
+    if (company) filter.company = { $regex: company, $options: 'i' };
     if (location) filter.location = { $regex: location, $options: 'i' };
     if (type) filter.type = type;
     if (featured !== undefined) filter.featured = featured === 'true';
@@ -80,6 +82,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', [
   body('title').trim().notEmpty().withMessage('Title is required'),
   body('company').trim().notEmpty().withMessage('Company is required'),
+  body('companyLogo').trim().notEmpty().withMessage('Company logo is required').isURL().withMessage('Company logo must be a valid URL'),
   body('location').trim().notEmpty().withMessage('Location is required'),
   body('category').isIn(['Design', 'Sales', 'Marketing', 'Finance', 'Technology', 'Engineering', 'Business', 'Human Resources']).withMessage('Invalid category'),
   body('description').trim().notEmpty().withMessage('Description is required'),
@@ -135,6 +138,24 @@ router.get('/stats/categories', async (req, res) => {
       { $sort: { count: -1 } },
     ]);
     res.json({ success: true, data: stats });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// GET /api/jobs/companies/list - Get all unique companies
+router.get('/companies/list', async (req, res) => {
+  try {
+    const companies = await Job.aggregate([
+      { $group: { _id: '$company', logo: { $first: '$companyLogo' }, count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+    ]);
+    const formattedCompanies = companies.map(c => ({
+      name: c._id,
+      logo: c.logo,
+      jobCount: c.count,
+    }));
+    res.json({ success: true, data: formattedCompanies });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

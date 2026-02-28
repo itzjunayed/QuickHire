@@ -80,6 +80,25 @@
   .section-title span {
     @apply text-primary;
   }
+
+  /* Gradient utilities */
+  .bg-gradient-radial {
+    background: radial-gradient(var(--tw-gradient-stops));
+  }
+
+  .from-primary-200 {
+    --tw-gradient-from: rgb(200, 190, 255);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(200, 190, 255, 0));
+  }
+
+  .to-transparent {
+    --tw-gradient-to: transparent;
+  }
+
+  .from-primary-100 {
+    --tw-gradient-from: rgb(230, 220, 255);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(230, 220, 255, 0));
+  }
 }
 
 /* Scrollbar styling */
@@ -117,4 +136,95 @@
   height: 3px;
   background: #4F3FF0;
   border-radius: 2px;
+}
+/* Mobile Menu Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInMenu {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 500px;
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation: slideInMenu 0.3s ease-out;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slide-in-from-top-2 {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Mobile improvements */
+@media (max-width: 768px) {
+  body {
+    background: linear-gradient(135deg, #fafbff 0%, #f5f7ff 100%);
+    min-height: 100vh;
+  }
+
+  nav {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+  }
+
+  .md\:hidden {
+    will-change: transform, opacity;
+  }
+}
+
+/* Better scroll experience on mobile */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Improved button ripple effect */
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(79, 63, 240, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:active::after {
+  width: 300px;
+  height: 300px;
 }

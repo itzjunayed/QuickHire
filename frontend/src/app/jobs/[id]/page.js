@@ -74,11 +74,11 @@ export default function JobDetailPage() {
     return (
       <div className="min-h-screen bg-gray-50">
         <Navbar />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="animate-pulse space-y-5">
-            <div className="h-8 bg-gray-200 rounded w-1/3" />
+        <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="space-y-5 animate-pulse">
+            <div className="w-1/3 h-8 bg-gray-200 rounded" />
             <div className="h-48 bg-gray-200 rounded-2xl" />
-            <div className="h-96 bg-gray-200 rounded-2xl" />
+            <div className="bg-gray-200 h-96 rounded-2xl" />
           </div>
         </div>
       </div>
@@ -87,9 +87,9 @@ export default function JobDetailPage() {
 
   if (error && !job) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-dark mb-2">Job not found</h2>
+          <h2 className="mb-2 text-2xl font-bold text-dark">Job not found</h2>
           <Link href="/jobs" className="text-primary hover:underline">Browse all jobs</Link>
         </div>
       </div>
@@ -104,32 +104,32 @@ export default function JobDetailPage() {
 
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-sm text-gray-400">
-            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+            <Link href="/" className="transition-colors hover:text-primary">Home</Link>
             <span>/</span>
-            <Link href="/jobs" className="hover:text-primary transition-colors">Jobs</Link>
+            <Link href="/jobs" className="transition-colors hover:text-primary">Jobs</Link>
             <span>/</span>
-            <span className="text-dark font-medium truncate">{job.title}</span>
+            <span className="font-medium truncate text-dark">{job.title}</span>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-8 lg:flex-row">
           {/* ── MAIN CONTENT ── */}
           <main className="flex-1">
             {/* Job header card */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-6 lg:p-8 mb-6 shadow-card">
-              <div className="flex flex-col sm:flex-row sm:items-start gap-5">
+            <div className="p-6 mb-6 bg-white border border-gray-100 rounded-2xl lg:p-8 shadow-card">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
                 <div className={`w-16 h-16 ${bgColor} rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg flex-shrink-0`}>
-                  {job.companyLogo || job.company[0].toUpperCase()}
+                  <img src={job.companyLogo} alt={job.company} className="object-cover w-full h-full" onError={(e) => e.target.style.display = 'none'} />
                 </div>
                 <div className="flex-1">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                      <h1 className="text-2xl lg:text-3xl font-extrabold text-dark mb-1">{job.title}</h1>
-                      <p className="text-gray-500 font-medium">{job.company} • {job.location}</p>
+                      <h1 className="mb-1 text-2xl font-extrabold lg:text-3xl text-dark">{job.title}</h1>
+                      <p className="font-medium text-gray-500">{job.company} • {job.location}</p>
                     </div>
                     <span className="text-sm font-semibold text-gray-500 border border-gray-200 px-4 py-1.5 rounded-full">
                       {job.type}
@@ -169,43 +169,43 @@ export default function JobDetailPage() {
             </div>
 
             {/* Description */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-6 lg:p-8 mb-6 shadow-card">
-              <h2 className="text-lg font-bold text-dark mb-4">Job Description</h2>
-              <p className="text-gray-600 leading-relaxed whitespace-pre-line">{job.description}</p>
+            <div className="p-6 mb-6 bg-white border border-gray-100 rounded-2xl lg:p-8 shadow-card">
+              <h2 className="mb-4 text-lg font-bold text-dark">Job Description</h2>
+              <p className="leading-relaxed text-gray-600 whitespace-pre-line">{job.description}</p>
 
               {job.requirements && (
                 <>
-                  <h2 className="text-lg font-bold text-dark mt-8 mb-4">Requirements</h2>
-                  <p className="text-gray-600 leading-relaxed whitespace-pre-line">{job.requirements}</p>
+                  <h2 className="mt-8 mb-4 text-lg font-bold text-dark">Requirements</h2>
+                  <p className="leading-relaxed text-gray-600 whitespace-pre-line">{job.requirements}</p>
                 </>
               )}
             </div>
 
             {/* Success message */}
             {submitted && (
-              <div className="bg-green-50 border border-green-200 rounded-2xl p-6 mb-6 flex items-start gap-4">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="flex items-start gap-4 p-6 mb-6 border border-green-200 bg-green-50 rounded-2xl">
+                <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-green-100 rounded-full">
                   <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/>
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-bold text-green-800 mb-1">Application Submitted! 🎉</h3>
-                  <p className="text-green-700 text-sm">We've received your application and will get back to you soon. Good luck!</p>
+                  <h3 className="mb-1 font-bold text-green-800">Application Submitted! 🎉</h3>
+                  <p className="text-sm text-green-700">We've received your application and will get back to you soon. Good luck!</p>
                 </div>
               </div>
             )}
 
             {/* Apply form */}
             {showForm && !submitted && (
-              <div className="bg-white rounded-2xl border border-gray-100 p-6 lg:p-8 shadow-card">
-                <h2 className="text-lg font-bold text-dark mb-6">Apply Now</h2>
+              <div className="p-6 bg-white border border-gray-100 rounded-2xl lg:p-8 shadow-card">
+                <h2 className="mb-6 text-lg font-bold text-dark">Apply Now</h2>
                 {error && (
-                  <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-5 text-sm text-red-700">{error}</div>
+                  <div className="p-4 mb-5 text-sm text-red-700 border border-red-200 bg-red-50 rounded-xl">{error}</div>
                 )}
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label className="block text-sm font-semibold text-dark mb-2">Full Name *</label>
+                    <label className="block mb-2 text-sm font-semibold text-dark">Full Name *</label>
                     <input
                       type="text"
                       value={form.name}
@@ -213,11 +213,11 @@ export default function JobDetailPage() {
                       placeholder="John Doe"
                       className={`input-field ${formErrors.name ? 'border-red-400 focus:ring-red-200' : ''}`}
                     />
-                    {formErrors.name && <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>}
+                    {formErrors.name && <p className="mt-1 text-xs text-red-500">{formErrors.name}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-dark mb-2">Email Address *</label>
+                    <label className="block mb-2 text-sm font-semibold text-dark">Email Address *</label>
                     <input
                       type="email"
                       value={form.email}
@@ -225,11 +225,11 @@ export default function JobDetailPage() {
                       placeholder="john@example.com"
                       className={`input-field ${formErrors.email ? 'border-red-400 focus:ring-red-200' : ''}`}
                     />
-                    {formErrors.email && <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>}
+                    {formErrors.email && <p className="mt-1 text-xs text-red-500">{formErrors.email}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-dark mb-2">Resume Link *</label>
+                    <label className="block mb-2 text-sm font-semibold text-dark">Resume Link *</label>
                     <input
                       type="url"
                       value={form.resumeLink}
@@ -237,11 +237,11 @@ export default function JobDetailPage() {
                       placeholder="https://drive.google.com/your-resume"
                       className={`input-field ${formErrors.resumeLink ? 'border-red-400 focus:ring-red-200' : ''}`}
                     />
-                    {formErrors.resumeLink && <p className="text-red-500 text-xs mt-1">{formErrors.resumeLink}</p>}
+                    {formErrors.resumeLink && <p className="mt-1 text-xs text-red-500">{formErrors.resumeLink}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-dark mb-2">Cover Note *</label>
+                    <label className="block mb-2 text-sm font-semibold text-dark">Cover Note *</label>
                     <textarea
                       value={form.coverNote}
                       onChange={e => handleInput('coverNote', e.target.value)}
@@ -250,8 +250,8 @@ export default function JobDetailPage() {
                       className={`input-field resize-none ${formErrors.coverNote ? 'border-red-400 focus:ring-red-200' : ''}`}
                     />
                     <div className="flex justify-between mt-1">
-                      {formErrors.coverNote && <p className="text-red-500 text-xs">{formErrors.coverNote}</p>}
-                      <p className="text-xs text-gray-400 ml-auto">{form.coverNote.length}/2000</p>
+                      {formErrors.coverNote && <p className="text-xs text-red-500">{formErrors.coverNote}</p>}
+                      <p className="ml-auto text-xs text-gray-400">{form.coverNote.length}/2000</p>
                     </div>
                   </div>
 
@@ -259,11 +259,11 @@ export default function JobDetailPage() {
                     <button
                       type="submit"
                       disabled={applying}
-                      className="btn-primary flex-1 justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="justify-center flex-1 btn-primary disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       {applying ? (
                         <>
-                          <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
                           </svg>
@@ -274,7 +274,7 @@ export default function JobDetailPage() {
                     <button
                       type="button"
                       onClick={() => setShowForm(false)}
-                      className="px-6 py-3 border-2 border-gray-200 text-gray-600 font-semibold rounded-lg hover:border-gray-300 transition-colors"
+                      className="px-6 py-3 font-semibold text-gray-600 transition-colors border-2 border-gray-200 rounded-lg hover:border-gray-300"
                     >
                       Cancel
                     </button>
@@ -285,15 +285,15 @@ export default function JobDetailPage() {
           </main>
 
           {/* ── SIDEBAR ── */}
-          <aside className="lg:w-80 flex-shrink-0 space-y-5">
+          <aside className="flex-shrink-0 space-y-5 lg:w-80">
             {/* Apply CTA */}
             {!submitted && (
-              <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-card">
-                <h3 className="font-bold text-dark text-lg mb-1">Interested?</h3>
-                <p className="text-gray-400 text-sm mb-5">Apply now and take the next step in your career</p>
+              <div className="p-6 bg-white border border-gray-100 rounded-2xl shadow-card">
+                <h3 className="mb-1 text-lg font-bold text-dark">Interested?</h3>
+                <p className="mb-5 text-sm text-gray-400">Apply now and take the next step in your career</p>
                 <button
                   onClick={() => setShowForm(!showForm)}
-                  className="btn-primary w-full justify-center"
+                  className="justify-center w-full btn-primary"
                 >
                   {showForm ? 'Hide Form' : 'Apply Now'}
                 </button>
@@ -301,8 +301,8 @@ export default function JobDetailPage() {
             )}
 
             {/* Job overview */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-card">
-              <h3 className="font-bold text-dark mb-5">Job Overview</h3>
+            <div className="p-6 bg-white border border-gray-100 rounded-2xl shadow-card">
+              <h3 className="mb-5 font-bold text-dark">Job Overview</h3>
               <div className="space-y-4">
                 {[
                   { label: 'Job Title', value: job.title, icon: '💼' },
@@ -315,8 +315,8 @@ export default function JobDetailPage() {
                   <div key={label} className="flex items-start gap-3">
                     <span className="text-lg">{icon}</span>
                     <div>
-                      <p className="text-xs text-gray-400 font-medium">{label}</p>
-                      <p className="text-sm text-dark font-semibold">{value}</p>
+                      <p className="text-xs font-medium text-gray-400">{label}</p>
+                      <p className="text-sm font-semibold text-dark">{value}</p>
                     </div>
                   </div>
                 ))}
@@ -325,19 +325,19 @@ export default function JobDetailPage() {
 
             {/* Related jobs */}
             {relatedJobs.length > 0 && (
-              <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-card">
-                <h3 className="font-bold text-dark mb-4">Related Jobs</h3>
+              <div className="p-6 bg-white border border-gray-100 rounded-2xl shadow-card">
+                <h3 className="mb-4 font-bold text-dark">Related Jobs</h3>
                 <div className="space-y-3">
                   {relatedJobs.map(rj => {
                     const rBgColor = getCompanyColor(rj.company);
                     return (
                       <Link key={rj._id} href={`/jobs/${rj._id}`}>
-                        <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors -mx-3">
+                        <div className="flex items-center gap-3 p-3 -mx-3 transition-colors rounded-xl hover:bg-gray-50">
                           <div className={`w-9 h-9 ${rBgColor} rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
-                            {rj.company[0]}
+                            <img src={rj.companyLogo} alt={rj.company} className="object-cover w-full h-full" onError={(e) => e.target.style.display = 'none'} />
                           </div>
                           <div className="min-w-0">
-                            <p className="text-sm font-bold text-dark truncate">{rj.title}</p>
+                            <p className="text-sm font-bold truncate text-dark">{rj.title}</p>
                             <p className="text-xs text-gray-400 truncate">{rj.company}</p>
                           </div>
                         </div>

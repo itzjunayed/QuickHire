@@ -10,8 +10,12 @@ export function JobCard({ job }) {
         {/* Header */}
         <div className="flex items-start justify-between">
           {/* Company logo */}
-          <div className={`w-12 h-12 ${bgColor} rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md flex-shrink-0`}>
-            {job.companyLogo || job.company[0].toUpperCase()}
+          <div className={`w-12 h-12 ${bgColor} rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md flex-shrink-0 overflow-hidden`}>
+            {job.companyLogo ? (
+              <img src={job.companyLogo} alt={job.company} className="w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+            ) : (
+              job.company[0].toUpperCase()
+            )}
           </div>
           <span className="text-xs font-semibold text-gray-500 border border-gray-200 px-3 py-1 rounded-full">
             {job.type}
@@ -49,8 +53,12 @@ export function JobListItem({ job }) {
     <Link href={`/jobs/${job._id}`}>
       <div className="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-100 hover:shadow-card-hover hover:border-primary-100 transition-all duration-200 cursor-pointer">
         {/* Logo */}
-        <div className={`w-11 h-11 ${bgColor} rounded-xl flex items-center justify-center text-white font-bold text-base flex-shrink-0`}>
-          {job.companyLogo || job.company[0].toUpperCase()}
+        <div className={`w-11 h-11 ${bgColor} rounded-xl flex items-center justify-center text-white font-bold text-base flex-shrink-0 overflow-hidden`}>
+          {job.companyLogo ? (
+            <img src={job.companyLogo} alt={job.company} className="w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+          ) : (
+            job.company[0].toUpperCase()
+          )}
         </div>
 
         {/* Info */}

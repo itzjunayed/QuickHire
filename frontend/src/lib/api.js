@@ -1,8 +1,12 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 async function fetchAPI(endpoint, options = {}) {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
   const res = await fetch(`${API_URL}${endpoint}`, {
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     ...options,
   });
   const data = await res.json();
@@ -12,6 +16,29 @@ async function fetchAPI(endpoint, options = {}) {
   return data;
 }
 
+// Auth functions
+export async function signup(userData) {
+  return fetchAPI('/auth/signup', {
+    method: 'POST',
+    body: JSON.stringify(userData),
+  });
+}
+
+export async function login(credentials) {
+  return fetchAPI('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify(credentials),
+  });
+}
+
+export async function logout() {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+}
+
+// Job functions
 export async function getJobs(params = {}) {
   const query = new URLSearchParams(params).toString();
   return fetchAPI(`/jobs${query ? `?${query}` : ''}`);
@@ -32,6 +59,11 @@ export async function deleteJob(id) {
   return fetchAPI(`/jobs/${id}`, { method: 'DELETE' });
 }
 
+export async function getCompanies() {
+  return fetchAPI('/jobs/companies/list');
+}
+
+// Application functions
 export async function submitApplication(applicationData) {
   return fetchAPI('/applications', {
     method: 'POST',

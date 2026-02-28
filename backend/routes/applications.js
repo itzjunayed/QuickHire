@@ -51,7 +51,7 @@ router.post('/', [
 router.get('/', async (req, res) => {
   try {
     const applications = await Application.find()
-      .populate('job', 'title company location')
+      .populate('job', 'title company location salary')
       .sort({ createdAt: -1 });
     res.json({ success: true, data: applications });
   } catch (error) {
@@ -63,7 +63,7 @@ router.get('/', async (req, res) => {
 router.get('/job/:jobId', async (req, res) => {
   try {
     const applications = await Application.find({ job: req.params.jobId })
-      .populate('job', 'title company')
+      .populate('job', 'title company salary')
       .sort({ createdAt: -1 });
     res.json({ success: true, data: applications });
   } catch (error) {
