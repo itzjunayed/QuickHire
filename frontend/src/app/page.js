@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CategoryCard from '../components/CategoryCard';
 import { JobCard, JobListItem } from '../components/JobCard';
-import { getJobs, CATEGORIES } from '../lib/api';
+import { getJobs, CATEGORIES, JOB_TYPE_COLORS } from '../lib/api';
 
 const COMPANIES = [
   { name: 'vodafone'},
@@ -26,6 +26,7 @@ export default function HomePage() {
   const [latestJobs, setLatestJobs] = useState([]);
   const [categoryCounts, setCategoryCounts] = useState({});
   const [loading, setLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -56,6 +57,14 @@ export default function HomePage() {
       }
     }
     fetchData();
+  }, []);
+
+  // Trigger animations on page load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleSearch = (e) => {
@@ -149,7 +158,7 @@ export default function HomePage() {
             <div className="relative hidden lg:block">
                 <img src="./Landing Page/CTA/3.1 Dashboard Company.png" alt="Hero" className="object-contain rounded opacity-90 w-100 h-100" />
               {/* Floating stat cards */}
-              <div className="absolute flex items-center gap-3 p-4 bg-white shadow-xl -bottom-4 -left-6 rounded-2xl">
+              <div className={`absolute flex items-center gap-3 p-4 bg-white shadow-xl -bottom-4 -left-6 rounded-2xl transition-all duration-700 ${isLoaded ? 'animate-float-in-left' : 'opacity-0'}`}>
                 <div className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-xl">
                   <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
@@ -160,7 +169,7 @@ export default function HomePage() {
                   <p className="font-bold text-dark">21,457</p>
                 </div>
               </div>
-              <div className="absolute flex items-center gap-3 p-4 bg-white shadow-xl -top-4 -right-6 rounded-2xl">
+              <div className={`absolute flex items-center gap-3 p-4 bg-white shadow-xl -top-4 -right-6 rounded-2xl transition-all duration-700 delay-200 ${isLoaded ? 'animate-float-in-right' : 'opacity-0'}`}>
                 <div className="flex items-center justify-center w-10 h-10 bg-green-100 rounded-xl">
                   <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -217,14 +226,14 @@ export default function HomePage() {
       {/* ── START POSTING JOBS CTA ── */}
       <section className="px-4 py-8 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="overflow-hidden bg-primary rounded-3xl">
+          <div className="overflow-hidden bg-gradient-to-br from-primary to-primary-600 rounded-3xl">
             <div className="grid items-center gap-8 p-10 lg:grid-cols-2 lg:p-14">
               <div>
                 <h2 className="mb-4 text-3xl font-extrabold leading-tight text-white lg:text-4xl">
                   Start posting<br />jobs today
                 </h2>
                 <p className="mb-6 text-base text-white/70">
-                  Start posting jobs for only $10.
+                  Reach thousands of job seekers and find your next great hire. Start with a free posting.
                 </p>
                 <Link
                   href="/admin"
@@ -233,24 +242,9 @@ export default function HomePage() {
                   Sign Up For Free
                 </Link>
               </div>
-              {/* Dashboard preview */}
-              <div className="relative hidden lg:block">
-                <div className="p-5 text-white border bg-white/10 backdrop-blur rounded-2xl border-white/20">
-                  <div className="flex gap-3 mb-4">
-                    <div className="px-4 py-2 text-xs font-bold bg-white/20 rounded-xl">76 <span className="font-normal opacity-60">Applicants</span></div>
-                    <div className="px-4 py-2 text-xs font-bold bg-white/20 rounded-xl">24 <span className="font-normal opacity-60">Jobs</span></div>
-                  </div>
-                  <div className="space-y-2">
-                    {[80, 55, 70, 40, 90].map((w, i) => (
-                      <div key={i} className="flex items-center gap-2">
-                        <div className="w-full h-2 rounded-full bg-white/10">
-                          <div className="h-2 rounded-full bg-white/50" style={{ width: `${w}%` }} />
-                        </div>
-                        <span className="w-8 text-xs text-white/50">{w}%</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              <div className="relative hidden lg:block h-96">
+                <img src="./Landing Page/CTA/pattern.png" alt="Post Job" className="absolute inset-0 object-contain w-full h-full" />
+                <img src="./Landing Page/CTA/person.png" alt="Post Job" className="absolute top-0 object-contain w-4/5" />
               </div>
             </div>
           </div>

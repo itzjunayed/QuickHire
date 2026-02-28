@@ -4,7 +4,8 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
-import { getJob, submitApplication, getJobs, getCompanyColor, TAG_COLORS } from '../../../lib/api';
+import { Icon } from '@iconify/react';
+import { getJob, submitApplication, getJobs, getCompanyColor, TAG_COLORS, JOB_TYPE_COLORS } from '../../../lib/api';
 
 export default function JobDetailPage() {
   const { id } = useParams();
@@ -128,7 +129,7 @@ export default function JobDetailPage() {
             {/* Job header card */}
             <div className="p-6 mb-6 bg-white border border-gray-100 rounded-2xl lg:p-8 shadow-card">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg flex-shrink-0`}>
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg flex-shrink-0 `}>
                   <img src={job.companyLogo} alt={job.company} className="object-cover w-full h-full" onError={(e) => e.target.style.display = 'none'} />
                 </div>
                 <div className="flex-1">
@@ -137,7 +138,7 @@ export default function JobDetailPage() {
                       <h1 className="mb-1 text-2xl font-extrabold lg:text-3xl text-dark">{job.title}</h1>
                       <p className="font-medium text-gray-500">{job.company} • {job.location}</p>
                     </div>
-                    <span className="text-sm font-semibold text-gray-500 border border-gray-200 px-4 py-1.5 rounded-full">
+                    <span className={` ${JOB_TYPE_COLORS[job.type]} text-sm font-semibold text-gray-500 border border-gray-200 px-4 py-1.5 rounded-full `}>
                       {job.type}
                     </span>
                   </div>
@@ -157,7 +158,7 @@ export default function JobDetailPage() {
                     </span>
                     {job.salary && (
                       <span className="flex items-center gap-1.5 text-xs text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full">
-                        💰 {job.salary}
+                        {job.salary}
                       </span>
                     )}
                   </div>
@@ -196,7 +197,7 @@ export default function JobDetailPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="mb-1 font-bold text-green-800">Application Submitted! 🎉</h3>
+                  <h3 className="mb-1 font-bold text-green-800">Application Submitted!</h3>
                   <p className="text-sm text-green-700">We've received your application and will get back to you soon. Good luck!</p>
                 </div>
               </div>
@@ -311,15 +312,15 @@ export default function JobDetailPage() {
               <h3 className="mb-5 font-bold text-dark">Job Overview</h3>
               <div className="space-y-4">
                 {[
-                  { label: 'Job Title', value: job.title, icon: '💼' },
-                  { label: 'Company', value: job.company, icon: '🏢' },
-                  { label: 'Location', value: job.location, icon: '📍' },
-                  { label: 'Category', value: job.category, icon: '🏷️' },
-                  { label: 'Job Type', value: job.type, icon: '⏰' },
-                  ...(job.salary ? [{ label: 'Salary', value: job.salary, icon: '💰' }] : []),
-                ].map(({ label, value, icon }) => (
+                  { label: 'Job Title', value: job.title },
+                  { label: 'Company', value: job.company },
+                  { label: 'Location', value: job.location },
+                  { label: 'Category', value: job.category },
+                  { label: 'Job Type', value: job.type },
+                  ...(job.salary ? [{ label: 'Salary', value: job.salary }] : []),
+                ].map(({ label, value }) => (
                   <div key={label} className="flex items-start gap-3">
-                    <span className="text-lg">{icon}</span>
+                    <Icon icon="mdi:circle-small" width="16" height="16" className="flex-shrink-0 mt-1 text-gray-400" />
                     <div>
                       <p className="text-xs font-medium text-gray-400">{label}</p>
                       <p className="text-sm font-semibold text-dark">{value}</p>

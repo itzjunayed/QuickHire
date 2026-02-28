@@ -45,7 +45,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="items-center hidden gap-8 md:flex">
+          <div className="items-center hidden gap-8 nav:flex">
             <Link
               href="/jobs"
               className={`font-medium text-sm transition-colors hover:text-primary ${
@@ -65,7 +65,7 @@ export default function Navbar() {
           </div>
 
           {/* Auth Buttons */}
-          <div className="items-center hidden gap-3 md:flex">
+          <div className="items-center hidden gap-3 nav:flex">
             {user ? (
               <div className="flex items-center gap-3">
                 <span className={`text-sm font-medium ${isHeroPage ? 'text-white' : 'text-gray-700'}`}>
@@ -113,7 +113,7 @@ export default function Navbar() {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className={`md:hidden p-2 rounded-lg transition-all ${isHeroPage ? 'text-white' : 'text-gray-700'}`}
+            className={`nav:hidden p-2 rounded-lg transition-all ${isHeroPage ? 'text-white' : 'text-gray-700'}`}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {menuOpen
@@ -126,7 +126,7 @@ export default function Navbar() {
 
         {/* Mobile Menu - Animated Slide Down */}
         {menuOpen && (
-          <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out`}>
+          <div className={`nav:hidden overflow-hidden transition-all duration-300 ease-in-out`}>
             <div className={`pb-4 flex flex-col gap-3 pt-4 border-t ${isHeroPage ? 'border-white/20 text-white' : 'border-gray-100 text-gray-700'} animate-in fade-in slide-in-from-top-2`}>
               <Link href="/jobs" className="py-2 font-medium transition-colors hover:text-primary" onClick={() => setMenuOpen(false)}>
                 Find Jobs

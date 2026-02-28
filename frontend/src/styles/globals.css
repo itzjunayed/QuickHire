@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+
   * {
     box-sizing: border-box;
   }
@@ -18,88 +18,87 @@
     color: #202430;
     background: #fff;
   }
+
+
+.btn-primary {
+  @apply inline-flex items-center gap-2 px-6 py-3 font-semibold text-white transition-all duration-200 rounded-lg bg-primary hover:bg-primary-600;
 }
 
-@layer components {
-  .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 font-semibold text-white transition-all duration-200 rounded-lg bg-primary hover:bg-primary-600;
-  }
-
-  .btn-outline {
-    @apply inline-flex items-center gap-2 px-6 py-3 font-semibold transition-all duration-200 border-2 rounded-lg border-primary text-primary hover:bg-primary hover:text-white;
-  }
-
-  .tag {
-    @apply px-3 py-1 text-xs font-semibold rounded-full;
-  }
-
-  .tag-marketing {
-    @apply text-yellow-700 bg-yellow-100;
-  }
-
-  .tag-design {
-    @apply text-green-700 bg-green-100;
-  }
-
-  .tag-technology {
-    @apply text-blue-700 bg-blue-100;
-  }
-
-  .tag-business {
-    @apply text-purple-700 bg-purple-100;
-  }
-
-  .tag-sales {
-    @apply text-orange-700 bg-orange-100;
-  }
-
-  .tag-finance {
-    @apply text-red-700 bg-red-100;
-  }
-
-  .tag-engineering {
-    @apply bg-cyan-100 text-cyan-700;
-  }
-
-  .tag-hr {
-    @apply text-pink-700 bg-pink-100;
-  }
-
-  .job-card {
-    @apply p-6 transition-all duration-300 bg-white border border-gray-100 cursor-pointer rounded-2xl hover:shadow-card-hover hover:border-primary-100;
-  }
-
-  .input-field {
-    @apply w-full px-4 py-3 text-sm transition-all border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary;
-  }
-
-  .section-title {
-    @apply text-3xl font-bold text-dark;
-  }
-
-  .section-title span {
-    @apply text-primary;
-  }
-
-  /* Gradient utilities */
-  .bg-gradient-radial {
-    background: radial-gradient(var(--tw-gradient-stops));
-  }
-
-  .from-primary-200 {
-    --tw-gradient-from: rgb(200, 190, 255);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(200, 190, 255, 0));
-  }
-
-  .to-transparent {
-    --tw-gradient-to: transparent;
-  }
-
-  .from-primary-100 {
-    --tw-gradient-from: rgb(230, 220, 255);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(230, 220, 255, 0));
-  }
+.btn-outline {
+  @apply inline-flex items-center gap-2 px-6 py-3 font-semibold transition-all duration-200 border-2 rounded-lg border-primary text-primary hover:bg-primary hover:text-white;
 }
+
+.tag {
+  @apply px-3 py-1 text-xs font-semibold rounded-full;
+}
+
+.tag-marketing {
+  @apply text-yellow-700 bg-yellow-100;
+}
+
+.tag-design {
+  @apply text-green-700 bg-green-100;
+}
+
+.tag-technology {
+  @apply text-blue-700 bg-blue-100;
+}
+
+.tag-business {
+  @apply text-purple-700 bg-purple-100;
+}
+
+.tag-sales {
+  @apply text-orange-700 bg-orange-100;
+}
+
+.tag-finance {
+  @apply text-red-700 bg-red-100;
+}
+
+.tag-engineering {
+  @apply bg-cyan-100 text-cyan-700;
+}
+
+.tag-hr {
+  @apply text-pink-700 bg-pink-100;
+}
+
+.job-card {
+  @apply p-6 transition-all duration-300 bg-white border border-gray-100 cursor-pointer rounded-2xl hover:shadow-card-hover hover:border-primary-100;
+}
+
+.input-field {
+  @apply w-full px-4 py-3 text-sm transition-all border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary;
+}
+
+.section-title {
+  @apply text-3xl font-bold text-dark;
+}
+
+.section-title span {
+  @apply text-primary;
+}
+
+/* Gradient utilities */
+.bg-gradient-radial {
+  background: radial-gradient(var(--tw-gradient-stops));
+}
+
+.from-primary-200 {
+  --tw-gradient-from: rgb(200, 190, 255);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(200, 190, 255, 0));
+}
+
+.to-transparent {
+  --tw-gradient-to: transparent;
+}
+
+.from-primary-100 {
+  --tw-gradient-from: rgb(230, 220, 255);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(230, 220, 255, 0));
+}
+
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
@@ -182,7 +181,7 @@
 }
 
 /* Mobile improvements */
-@media (max-width: 850px) {
+@media (max-width: 960px) {
   body {
     background: linear-gradient(135deg, #fafbff 0%, #f5f7ff 100%);
     min-height: 100vh;
@@ -226,4 +225,39 @@ button::after {
 button:active::after {
   width: 300px;
   height: 300px;
+}
+
+/* Floating cards scroll animations */
+@keyframes floatInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes floatInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-float-in-left {
+  animation: floatInLeft 0.8s ease-out forwards;
+}
+
+.animate-float-in-right {
+  animation: floatInRight 0.8s ease-out forwards;
+}
+
+.animate-float-in-delay {
+  animation-fill-mode: backwards;
 }

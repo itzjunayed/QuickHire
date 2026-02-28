@@ -4,7 +4,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { JobCard } from '../../components/JobCard';
-import { getJobs, CATEGORIES } from '../../lib/api';
+import { getJobs, CATEGORIES, JOB_TYPE_COLORS } from '../../lib/api';
 
 const JOB_TYPES = ['Full Time', 'Part Time', 'Contract', 'Internship', 'Remote'];
 
@@ -67,15 +67,15 @@ export default function JobsPage() {
 
       {/* Page header */}
       <div className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-2xl font-extrabold text-dark mb-1">
+        <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <h1 className="mb-1 text-2xl font-extrabold text-dark">
             Browse <span className="text-primary">{pagination.total.toLocaleString()}</span> Jobs
           </h1>
-          <p className="text-gray-500 text-sm">Find your next opportunity</p>
+          <p className="text-sm text-gray-500">Find your next opportunity</p>
 
           {/* Search bar */}
-          <form onSubmit={handleSearch} className="mt-5 flex flex-col sm:flex-row gap-3">
-            <div className="flex-1 flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-primary-300 focus-within:border-primary transition-all">
+          <form onSubmit={handleSearch} className="flex flex-col gap-3 mt-5 sm:flex-row">
+            <div className="flex items-center flex-1 gap-3 px-4 py-3 transition-all bg-white border border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-primary-300 focus-within:border-primary">
               <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" strokeLinecap="round"/>
               </svg>
@@ -87,22 +87,22 @@ export default function JobsPage() {
                 className="flex-1 text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
               />
             </div>
-            <button type="submit" className="btn-primary text-sm px-6 py-3 justify-center">
+            <button type="submit" className="justify-center px-6 py-3 text-sm btn-primary">
               Search
             </button>
           </form>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-8 lg:flex-row">
           {/* ── SIDEBAR FILTERS ── */}
-          <aside className="lg:w-64 flex-shrink-0">
-            <div className="bg-white rounded-2xl border border-gray-100 p-5 sticky top-24">
+          <aside className="flex-shrink-0 lg:w-64">
+            <div className="sticky p-5 bg-white border border-gray-100 rounded-2xl top-24">
               <div className="flex items-center justify-between mb-5">
                 <h3 className="font-bold text-dark">Filters</h3>
                 {hasFilters && (
-                  <button onClick={clearFilters} className="text-xs text-primary hover:underline font-medium">
+                  <button onClick={clearFilters} className="text-xs font-medium text-primary hover:underline">
                     Clear all
                   </button>
                 )}
@@ -110,7 +110,7 @@ export default function JobsPage() {
 
               {/* Category */}
               <div className="mb-6">
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Category</h4>
+                <h4 className="mb-3 text-xs font-bold tracking-wider text-gray-400 uppercase">Category</h4>
                 <div className="space-y-2">
                   <label className="flex items-center gap-2.5 cursor-pointer group">
                     <input
@@ -121,7 +121,7 @@ export default function JobsPage() {
                       onChange={() => setFilter('category', '')}
                       className="accent-primary"
                     />
-                    <span className="text-sm text-gray-600 group-hover:text-dark transition-colors">All Categories</span>
+                    <span className="text-sm text-gray-600 transition-colors group-hover:text-dark">All Categories</span>
                   </label>
                   {CATEGORIES.map(cat => (
                     <label key={cat.name} className="flex items-center gap-2.5 cursor-pointer group">
@@ -133,7 +133,7 @@ export default function JobsPage() {
                         onChange={() => setFilter('category', cat.name)}
                         className="accent-primary"
                       />
-                      <span className="text-sm text-gray-600 group-hover:text-dark transition-colors">{cat.name}</span>
+                      <span className="text-sm text-gray-600 transition-colors group-hover:text-dark">{cat.name}</span>
                     </label>
                   ))}
                 </div>
@@ -141,7 +141,7 @@ export default function JobsPage() {
 
               {/* Job Type */}
               <div className="mb-6">
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Job Type</h4>
+                <h4 className="mb-3 text-xs font-bold tracking-wider text-gray-400 uppercase">Job Type</h4>
                 <div className="space-y-2">
                   {JOB_TYPES.map(type => (
                     <label key={type} className="flex items-center gap-2.5 cursor-pointer group">
@@ -151,7 +151,7 @@ export default function JobsPage() {
                         onChange={() => setFilter('type', filters.type === type ? '' : type)}
                         className="accent-primary"
                       />
-                      <span className="text-sm text-gray-600 group-hover:text-dark transition-colors">{type}</span>
+                      <span className={`text-sm font-medium`}>{type}</span>
                     </label>
                   ))}
                 </div>
@@ -159,7 +159,7 @@ export default function JobsPage() {
 
               {/* Company */}
               <div className="mb-6">
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Company</h4>
+                <h4 className="mb-3 text-xs font-bold tracking-wider text-gray-400 uppercase">Company</h4>
                 <input
                   type="text"
                   placeholder="e.g. Google, Microsoft"
@@ -171,19 +171,19 @@ export default function JobsPage() {
                       setFilter('company', companyInput);
                     }
                   }}
-                  className="input-field text-sm"
+                  className="text-sm input-field"
                 />
               </div>
 
               {/* Location */}
               <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Location</h4>
+                <h4 className="mb-3 text-xs font-bold tracking-wider text-gray-400 uppercase">Location</h4>
                 <input
                   type="text"
                   placeholder="e.g. Paris, France"
                   value={filters.location}
                   onChange={e => setFilter('location', e.target.value)}
-                  className="input-field text-sm"
+                  className="text-sm input-field"
                 />
               </div>
             </div>
@@ -208,19 +208,19 @@ export default function JobsPage() {
                 )}
                 {filters.company && (
                   <span className="flex items-center gap-1.5 bg-primary-50 text-primary text-xs font-semibold px-3 py-1.5 rounded-full">
-                    🏢 {filters.company}
+                    {filters.company}
                     <button onClick={() => { setFilter('company', ''); setCompanyInput(''); }} className="hover:opacity-60">×</button>
                   </span>
                 )}
                 {filters.location && (
                   <span className="flex items-center gap-1.5 bg-primary-50 text-primary text-xs font-semibold px-3 py-1.5 rounded-full">
-                    📍 {filters.location}
+                    {filters.location}
                     <button onClick={() => setFilter('location', '')} className="hover:opacity-60">×</button>
                   </span>
                 )}
                 {filters.search && (
                   <span className="flex items-center gap-1.5 bg-primary-50 text-primary text-xs font-semibold px-3 py-1.5 rounded-full">
-                    🔍 {filters.search}
+                    {filters.search}
                     <button onClick={() => { setFilter('search', ''); setSearchInput(''); }} className="hover:opacity-60">×</button>
                   </span>
                 )}
@@ -228,27 +228,27 @@ export default function JobsPage() {
             )}
 
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
                 {Array(6).fill(0).map((_, i) => (
-                  <div key={i} className="bg-white rounded-2xl h-56 animate-pulse border border-gray-100" />
+                  <div key={i} className="h-56 bg-white border border-gray-100 rounded-2xl animate-pulse" />
                 ))}
               </div>
             ) : jobs.length === 0 ? (
-              <div className="text-center py-20">
-                <div className="w-20 h-20 bg-gray-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+              <div className="py-20 text-center">
+                <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-full">
                   <svg className="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" strokeLinecap="round"/>
                   </svg>
                 </div>
-                <h3 className="font-bold text-dark text-lg mb-2">No jobs found</h3>
-                <p className="text-gray-400 text-sm mb-5">Try adjusting your search or filters</p>
-                <button onClick={clearFilters} className="btn-primary text-sm">
+                <h3 className="mb-2 text-lg font-bold text-dark">No jobs found</h3>
+                <p className="mb-5 text-sm text-gray-400">Try adjusting your search or filters</p>
+                <button onClick={clearFilters} className="text-sm btn-primary">
                   Clear filters
                 </button>
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
                   {jobs.map(job => (
                     <JobCard key={job._id} job={job} />
                   ))}

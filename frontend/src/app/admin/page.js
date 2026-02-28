@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import DeleteConfirmModal from '../../components/DeleteConfirmModal';
-import { getJobs, createJob, deleteJob, getApplications, CATEGORIES, getCompanyColor, TAG_COLORS } from '../../lib/api';
+import ApplicationModal from '../../components/ApplicationModal';
+import { getJobs, createJob, deleteJob, getApplications, CATEGORIES, getCompanyColor, TAG_COLORS, JOB_TYPE_COLORS } from '../../lib/api';
 
 const JOB_TYPES = ['Full Time', 'Part Time', 'Contract', 'Internship', 'Remote'];
 const EMPTY_FORM = {
@@ -31,6 +32,8 @@ export default function AdminPage() {
   const [authorized, setAuthorized] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [selectedApplication, setSelectedApplication] = useState(null);
+  const [showApplicationModal, setShowApplicationModal] = useState(false);
 
   useEffect(() => {
     // Check if user is logged in and is an employer
@@ -421,7 +424,7 @@ export default function AdminPage() {
                             <span className="text-sm text-gray-600">{job.category}</span>
                           </td>
                           <td className="hidden px-4 py-4 md:table-cell">
-                            <span className="text-xs font-semibold text-gray-500 border border-gray-200 px-2.5 py-1 rounded-full">{job.type}</span>
+                            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${JOB_TYPE_COLORS[job.type] || 'bg-gray-100 text-gray-600'}`}>{job.type}</span>
                           </td>
                           <td className="hidden px-4 py-4 lg:table-cell">
                             <span className="text-sm text-gray-500">{job.location}</span>
@@ -430,7 +433,7 @@ export default function AdminPage() {
                             <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
                               job.featured ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-500'
                             }`}>
-                              {job.featured ? '⭐ Featured' : 'Standard'}
+                              {job.featured ? 'Featured' : 'Standard'}
                             </span>
                           </td>
                           <td className="px-6 py-4 text-right">
@@ -477,7 +480,7 @@ export default function AdminPage() {
                       <th className="hidden px-4 py-4 text-xs font-bold tracking-wider text-left text-gray-400 uppercase sm:table-cell">Job Applied</th>
                       <th className="hidden px-4 py-4 text-xs font-bold tracking-wider text-left text-gray-400 uppercase md:table-cell">Resume</th>
                       <th className="hidden px-4 py-4 text-xs font-bold tracking-wider text-left text-gray-400 uppercase lg:table-cell">Applied Date</th>
-                      <th className="px-6 py-4 text-xs font-bold tracking-wider text-right text-gray-400 uppercase">Action</th>
+                      <th className="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-400 uppercase">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
@@ -518,13 +521,18 @@ export default function AdminPage() {
                           </span>
                         </td>
                         <td className="px-6 py-4 text-right">
-                          <a href={app.resumeLink} target="_blank" rel="noopener noreferrer"
-                            className="flex items-center justify-end gap-1 text-xs font-semibold text-primary hover:underline">
+                          <button
+                            onClick={() => {
+                              setSelectedApplication(app);
+                              setShowApplicationModal(true);
+                            }}
+                            className="flex items-center justify-end gap-1 text-xs font-semibold text-primary hover:underline"
+                          >
                             View
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
-                          </a>
+                          </button>
                         </td>
                       </tr>
                     ))}
@@ -549,6 +557,16 @@ export default function AdminPage() {
         isLoading={deletingId === deleteTarget}
         confirmText="Delete Job"
         cancelText="Cancel"
+      />
+
+      {/* Application Modal */}
+      <ApplicationModal
+        isOpen={showApplicationModal}
+        application={selectedApplication}
+        onClose={() => {
+          setShowApplicationModal(false);
+          setSelectedApplication(null);
+        }}
       />
     </div>
   );

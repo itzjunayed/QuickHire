@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getCompanyColor, TAG_COLORS } from '../lib/api';
+import { JOB_TYPE_COLORS } from '../lib/api';
 
 export function JobCard({ job }) {
   const bgColor = getCompanyColor(job.company);
@@ -17,7 +18,7 @@ export function JobCard({ job }) {
               job.company[0].toUpperCase()
             )}
           </div>
-          <span className="px-3 py-1 text-xs font-semibold text-gray-500 border border-gray-200 rounded-full">
+          <span className={` text-xs font-semibold px-2.5 py-1 rounded-full ${JOB_TYPE_COLORS[job.type] || 'bg-gray-100 text-gray-600'} border border-gray-200 rounded-full`}>
             {job.type}
           </span>
         </div>
@@ -69,7 +70,7 @@ export function JobListItem({ job }) {
 
         {/* Tags */}
         <div className="hidden sm:flex flex-wrap gap-1.5 justify-end">
-          <span className="text-xs font-semibold text-gray-400 border border-gray-200 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+          <span className={`text-xs font-semibold text-gray-400 border border-gray-200 px-2.5 py-0.5 rounded-full whitespace-nowrap ${JOB_TYPE_COLORS[job.type] || 'bg-gray-100 text-gray-600'}`}>
             {job.type}
           </span>
           {(job.tags || []).slice(0, 2).map(tag => (

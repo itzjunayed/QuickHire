@@ -88,15 +88,23 @@ export async function getApplications() {
 }
 
 export const CATEGORIES = [
-  { name: 'Design', icon: '🎨', color: 'bg-blue-50 text-blue-600' },
-  { name: 'Sales', icon: '📊', color: 'bg-orange-50 text-orange-600' },
-  { name: 'Marketing', icon: '📣', color: 'bg-purple-50 text-purple-600' },
-  { name: 'Finance', icon: '💰', color: 'bg-green-50 text-green-600' },
-  { name: 'Technology', icon: '💻', color: 'bg-cyan-50 text-cyan-600' },
-  { name: 'Engineering', icon: '⚙️', color: 'bg-red-50 text-red-600' },
-  { name: 'Business', icon: '🏢', color: 'bg-yellow-50 text-yellow-600' },
-  { name: 'Human Resources', icon: '👥', color: 'bg-pink-50 text-pink-600' },
+  { name: 'Design', icon: 'solar:palette-2-linear', color: 'bg-blue-50 text-blue-600' },
+  { name: 'Sales', icon: 'solar:chart-2-linear', color: 'bg-orange-50 text-orange-600' },
+  { name: 'Marketing', icon: 'solar:megaphone-linear', color: 'bg-purple-50 text-purple-600' },
+  { name: 'Finance', icon: 'solar:wallet-linear', color: 'bg-green-50 text-green-600' },
+  { name: 'Technology', icon: 'solar:code-2-linear', color: 'bg-cyan-50 text-cyan-600' },
+  { name: 'Engineering', icon: 'solar:settings-linear', color: 'bg-red-50 text-red-600' },
+  { name: 'Business', icon: 'solar:buildings-linear', color: 'bg-yellow-50 text-yellow-600' },
+  { name: 'Human Resources', icon: 'solar:users-group-linear', color: 'bg-pink-50 text-pink-600' },
 ];
+
+export const JOB_TYPE_COLORS = {
+  'Full Time': 'bg-blue-50 text-blue-600',
+  'Part Time': 'bg-orange-50 text-orange-600',
+  'Contract': 'bg-purple-50 text-purple-600',
+  'Internship': 'bg-green-50 text-green-600',
+  'Remote': 'bg-cyan-50 text-cyan-600',
+};
 
 export const TAG_COLORS = {
   Marketing: 'tag-marketing',
@@ -108,6 +116,7 @@ export const TAG_COLORS = {
   Engineering: 'tag-engineering',
   'Human Resources': 'tag-hr',
 };
+
 
 export const COMPANY_COLORS = [
   'bg-blue-600', 'bg-purple-600', 'bg-pink-600', 'bg-green-600',

@@ -5,8 +5,21 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    {
+      pattern: /^(bg|text)-(blue|orange|purple|green|cyan|red|yellow|pink)-[0-9]+$/,
+    },
+  ],
   theme: {
     extend: {
+      screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+        'nav': '850px',
+      },
       colors: {
         primary: {
           DEFAULT: '#4F3FF0',
