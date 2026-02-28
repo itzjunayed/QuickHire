@@ -1,262 +1,204 @@
-# QuickHire – Job Board Application
+# QuickHire - Job Board Platform
 
-A full-stack job board application built for the Qtec Solution Limited technical assessment. Closely follows the provided Figma design with a complete frontend and backend implementation.
+A modern, full-stack job board application that connects employers with job seekers. QuickHire provides an intuitive platform for posting jobs, browsing available positions, and managing applications.
 
-## 🚀 Tech Stack
+## Features
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 14 (App Router), Tailwind CSS |
-| Backend | Node.js, Express.js |
-| Database | MongoDB with Mongoose |
-| Validation | express-validator (backend), custom (frontend) |
+- **User Authentication**: Secure JWT-based authentication with bcrypt password hashing
+- **Job Listings**: Browse and search available job postings
+- **Job Applications**: Apply to jobs and track application status
+- **Admin Dashboard**: Post and manage job listings
+- **Company Profiles**: View detailed company information
+- **Responsive Design**: Mobile-friendly UI built with Tailwind CSS
+- **Real-time Updates**: Server-side database integration with MongoDB
 
----
+## Tech Stack
 
-## 📁 Project Structure
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express.js** - Web application framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB object modeling
+- **JWT** - JSON Web Token for authentication
+- **bcryptjs** - Password hashing
+- **CORS** - Cross-Origin Resource Sharing
 
-```
-quickhire/
-├── README.md
-├── backend/
-│   ├── server.js          # Express app entry point
-│   ├── seed.js            # Database seeder (20 sample jobs)
-│   ├── config/
-│   │   └── db.js          # MongoDB connection
-│   ├── models/
-│   │   ├── Job.js         # Job schema
-│   │   └── Application.js # Application schema
-│   └── routes/
-│       ├── jobs.js        # GET/POST/PUT/DELETE /api/jobs
-│       └── applications.js# POST /api/applications
-└── frontend/
-    ├── next.config.js
-    ├── tailwind.config.js
-    └── src/
-        ├── app/
-        │   ├── page.js            # Landing page (/)
-        │   ├── jobs/page.js       # Job listings (/jobs)
-        │   ├── jobs/[id]/page.js  # Job detail (/jobs/:id)
-        │   └── admin/page.js      # Admin panel (/admin)
-        ├── components/
-        │   ├── Navbar.jsx
-        │   ├── Footer.jsx
-        │   ├── JobCard.jsx        # Card + List variants
-        │   └── CategoryCard.jsx
-        ├── lib/
-        │   └── api.js             # API utilities & helpers
-        └── styles/
-            └── globals.css
+### Frontend
+- **Next.js** - React framework for production
+- **React** - UI library
+- **Tailwind CSS** - Utility-first CSS framework
+- **Axios** - HTTP client
+- **Iconify** - Icon library
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+- **Node.js** (v14 or higher) - [Download](https://nodejs.org/)
+- **npm** or **yarn** - Comes with Node.js
+- **MongoDB** (local or MongoDB Atlas cloud) - [Download](https://www.mongodb.com/) or [Cloud](https://www.mongodb.com/cloud/atlas)
+- **Git** - For version control
+
+## Getting Started
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/quickhire.git
+cd quickhire
 ```
 
----
+### 2. Backend Setup
 
-## ⚙️ Setup & Installation
-
-### Prerequisites
-- Node.js 18+
-- MongoDB (local or MongoDB Atlas)
-- npm or yarn
-
----
-
-### Backend Setup
-
+#### Install Dependencies
 ```bash
 cd backend
-
-# Install dependencies
 npm install
-
-# Create environment file
-cp .env.example .env
-# Edit .env with your MongoDB URI
-
-# Start the server (development)
-npm run dev
-
-# OR start in production
-npm start
-
-# Seed the database with 20 sample jobs (optional)
-npm run seed
 ```
 
-**Backend `.env` file:**
+#### Configure Environment Variables
+Create a `.env` file in the `backend` directory and add the following:
+
 ```env
-PORT=5000
+# MongoDB Connection
 MONGODB_URI=mongodb://localhost:27017/quickhire
+# Or use MongoDB Atlas:
+# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/quickhire
+
+# JWT Configuration
+JWT_SECRET=your_jwt_secret_key_here_change_this_in_production
+
+# Server Port
+PORT=5000
+
+# Frontend URL for CORS
 FRONTEND_URL=http://localhost:3000
 ```
 
----
-
-### Frontend Setup
-
+#### Start the Backend Server
 ```bash
-cd frontend
-
-# Install dependencies
-npm install
-
-# Create environment file
-cp .env.example .env.local
-# Edit .env.local if your backend runs on a different port
-
-# Run development server
+# Development mode (with auto-restart on file changes)
 npm run dev
 
-# Build for production
+# Production mode
+npm start
+```
+
+The backend server will run on `http://localhost:5000`
+
+#### (Optional) Seed Database with Sample Data
+```bash
+npm run seed
+```
+
+### 3. Frontend Setup
+
+#### Install Dependencies
+```bash
+cd ../frontend
+npm install
+```
+
+#### Configure Environment Variables
+Create a `.env.local` file in the `frontend` directory:
+
+```env
+# Backend API URL
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+#### Start the Development Server
+```bash
+npm run dev
+```
+
+The frontend will be available at `http://localhost:3000`
+
+#### Build for Production
+```bash
 npm run build
 npm start
 ```
 
-**Frontend `.env.local` file:**
-```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
+## Environment Variables Reference
+
+### Backend (.env)
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/quickhire` |
+| `JWT_SECRET` | Secret key for JWT token signing | Required for security |
+| `PORT` | Server port | `5000` |
+| `FRONTEND_URL` | Frontend URL for CORS configuration | `http://localhost:3000` |
+
+### Frontend (.env.local)
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_API_URL` | Backend API base URL |
+
+## Project Structure
+
+```
+quickhire/
+├── backend/
+│   ├── models/              # Mongoose schemas
+│   │   ├── User.js
+│   │   ├── Job.js
+│   │   └── Application.js
+│   ├── routes/              # Express route handlers
+│   │   ├── auth.js
+│   │   ├── jobs.js
+│   │   └── applications.js
+│   ├── config/
+│   │   └── db.js            # Database connection config
+│   ├── server.js            # Express server setup
+│   ├── seed.js              # Database seeding script
+│   ├── package.json
+│   └── .env                 # Environment variables
+│
+├── frontend/
+│   ├── src/
+│   │   ├── app/             # Next.js app directory
+│   │   │   ├── layout.js
+│   │   │   ├── page.js
+│   │   │   ├── admin/
+│   │   │   ├── companies/
+│   │   │   ├── jobs/
+│   │   │   ├── login/
+│   │   │   └── signup/
+│   │   ├── components/      # Reusable React components
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── JobCard.jsx
+│   │   │   ├── ApplicationModal.jsx
+│   │   │   └── ...
+│   │   ├── lib/
+│   │   │   └── api.js       # Axios API setup
+│   │   └── styles/
+│   │       └── globals.css
+│   ├── public/              # Static assets
+│   ├── package.json
+│   ├── next.config.js
+│   ├── tailwind.config.js
+│   ├── postcss.config.js
+│   └── .env.local           # Environment variables
+│
+└── README.md
 ```
 
-The frontend will be available at **http://localhost:3000**
+## API Endpoints
 
----
-
-## 🌐 API Endpoints
+### Authentication
+- `POST /api/auth/signup` - Register a new user
+- `POST /api/auth/login` - User login
+- `POST /api/auth/logout` - User logout
 
 ### Jobs
-
-| Method | Endpoint | Description | Params |
-|--------|----------|-------------|--------|
-| GET | `/api/jobs` | List all jobs | `search`, `category`, `location`, `type`, `featured`, `page`, `limit` |
-| GET | `/api/jobs/:id` | Get single job | — |
-| POST | `/api/jobs` | Create a job (Admin) | body: job fields |
-| PUT | `/api/jobs/:id` | Update a job (Admin) | body: job fields |
-| DELETE | `/api/jobs/:id` | Delete a job (Admin) | — |
+- `GET /api/jobs` - Get all jobs
+- `GET /api/jobs/:id` - Get job details
+- `POST /api/jobs` - Post a new job (Admin)
+- `PUT /api/jobs/:id` - Update job (Admin)
+- `DELETE /api/jobs/:id` - Delete job (Admin)
 
 ### Applications
+- `GET /api/applications` - Get user applications
+- `POST /api/applications` - Submit job application
+- `PUT /api/applications/:id` - Update application status (Admin)
+- `DELETE /api/applications/:id` - Delete application
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/applications` | Submit an application |
-| GET | `/api/applications` | List all applications (Admin) |
-| GET | `/api/applications/job/:jobId` | Applications for a job |
-
-### Health Check
-
-```
-GET /api/health
-```
-
----
-
-## 📦 Data Models
-
-### Job
-```js
-{
-  title: String,           // Required
-  company: String,         // Required
-  companyLogo: String,     // Single character logo
-  location: String,        // Required
-  category: String,        // Enum: Design, Sales, Marketing, Finance, Technology, Engineering, Business, Human Resources
-  type: String,            // Enum: Full Time, Part Time, Contract, Internship, Remote
-  description: String,     // Required
-  requirements: String,
-  salary: String,
-  tags: [String],
-  featured: Boolean,
-  createdAt: Date,
-  updatedAt: Date
-}
-```
-
-### Application
-```js
-{
-  job: ObjectId,           // Reference to Job
-  name: String,            // Required
-  email: String,           // Required, valid email
-  resumeLink: String,      // Required, valid URL
-  coverNote: String,       // Required, max 2000 chars
-  createdAt: Date,
-  updatedAt: Date
-}
-```
-
----
-
-## 🎯 Features Implemented
-
-### Frontend
-- ✅ **Landing Page** — Hero with search, category grid, featured jobs, latest jobs, CTA banner, footer
-- ✅ **Job Listings Page** — Grid layout, search bar, sidebar filters (category, type, location), active filter chips, pagination
-- ✅ **Job Detail Page** — Full description, requirements, salary, apply form, related jobs sidebar
-- ✅ **Apply Now Form** — Name, email, resume link (URL), cover note with validation
-- ✅ **Admin Panel** — Post new jobs (full form with all fields), delete jobs, view applications
-- ✅ **Fully Responsive** — Mobile, tablet, and desktop layouts
-- ✅ **Loading States** — Skeleton loaders on all data-fetching sections
-- ✅ **Error Handling** — User-friendly error messages
-
-### Backend
-- ✅ All required REST endpoints
-- ✅ Search & filter support on GET /api/jobs
-- ✅ Input validation on all POST endpoints
-- ✅ Email format validation
-- ✅ URL format validation for resume links
-- ✅ Proper error responses
-
-### Bonus
-- ✅ Loading states & UX enhancements
-- ✅ Clean API response formatting `{ success, data, message }`
-- ✅ Environment-based configuration
-- ✅ Modular component architecture
-- ✅ Pagination support
-
----
-
-## 🎨 Design Implementation
-
-The UI closely follows the provided Figma design:
-- **Color scheme**: Deep indigo (`#4F3FF0`) primary, dark navy (`#0B0B2B`) hero
-- **Typography**: Plus Jakarta Sans (Google Fonts)
-- **Category grid**: 4×2 grid with icons, active state (Marketing highlighted)
-- **Job cards**: Company color-coded logos, type badges, tag chips
-- **Hero**: Dark navy background with geometric decorations and floating stat cards
-- **CTA Banner**: Full-width primary color with dashboard preview
-
----
-
-## 📝 Git Commit Strategy
-
-Suggested commit order for clean history:
-1. `feat: initial project setup (Next.js + Express)`
-2. `feat: database models (Job, Application)`
-3. `feat: backend API routes with validation`
-4. `feat: database seeder with 20 sample jobs`
-5. `feat: landing page with hero and category sections`
-6. `feat: job listings page with search and filters`
-7. `feat: job detail page with apply form`
-8. `feat: admin panel with job management`
-9. `style: responsive design and polish`
-10. `docs: README and environment setup`
-
----
-
-## 🚢 Deployment
-
-### Frontend → Vercel
-```bash
-cd frontend
-npx vercel
-# Set NEXT_PUBLIC_API_URL to your backend URL
-```
-
-### Backend → Railway / Render
-```bash
-# Connect GitHub repo
-# Set environment variables: MONGODB_URI, FRONTEND_URL, PORT
-# Deploy from root /backend directory
-```
-
----
-
-*Built with ❤️ for Qtec Solution Limited Technical Assessment*
