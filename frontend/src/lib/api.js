@@ -11,7 +11,19 @@ async function fetchAPI(endpoint, options = {}) {
   });
   const data = await res.json();
   if (!data.success && !res.ok) {
-    throw new Error(data.message || 'API error');
+    const error = new Error(data.message || 'API error');
+    error.data = data;
+    error.fieldErrors = {};
+    
+    // Parse field-level validation errors
+    if (data.errors && Array.isArray(data.errors)) {
+      data.errors.forEach(err => {
+        if (err.path) {
+          error.fieldErrors[err.path] = err.msg;
+        }
+      });
+    }
+    throw error;
   }
   return data;
 }

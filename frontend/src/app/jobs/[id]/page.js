@@ -59,7 +59,13 @@ export default function JobDetailPage() {
       setSubmitted(true);
       setShowForm(false);
     } catch (err) {
-      setError(err.message || 'Failed to submit application');
+      // Handle field-level validation errors from API
+      if (err.fieldErrors && Object.keys(err.fieldErrors).length > 0) {
+        setFormErrors(err.fieldErrors);
+        setError('Please fix the errors below');
+      } else {
+        setError(err.message || 'Failed to submit application');
+      }
     } finally {
       setApplying(false);
     }
@@ -122,7 +128,7 @@ export default function JobDetailPage() {
             {/* Job header card */}
             <div className="p-6 mb-6 bg-white border border-gray-100 rounded-2xl lg:p-8 shadow-card">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
-                <div className={`w-16 h-16 ${bgColor} rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg flex-shrink-0`}>
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg flex-shrink-0`}>
                   <img src={job.companyLogo} alt={job.company} className="object-cover w-full h-full" onError={(e) => e.target.style.display = 'none'} />
                 </div>
                 <div className="flex-1">
@@ -333,7 +339,7 @@ export default function JobDetailPage() {
                     return (
                       <Link key={rj._id} href={`/jobs/${rj._id}`}>
                         <div className="flex items-center gap-3 p-3 -mx-3 transition-colors rounded-xl hover:bg-gray-50">
-                          <div className={`w-9 h-9 ${rBgColor} rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
+                          <div className={`w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
                             <img src={rj.companyLogo} alt={rj.company} className="object-cover w-full h-full" onError={(e) => e.target.style.display = 'none'} />
                           </div>
                           <div className="min-w-0">

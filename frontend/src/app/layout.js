@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import ScrollToTop from '../components/ScrollToTop';
 
 export const metadata = {
   title: 'QuickHire – Discover more than 5000+ Jobs',
@@ -19,7 +20,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ScrollToTop />
+      </body>
     </html>
   );
 }

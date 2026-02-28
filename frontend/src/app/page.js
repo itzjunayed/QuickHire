@@ -9,11 +9,11 @@ import { JobCard, JobListItem } from '../components/JobCard';
 import { getJobs, CATEGORIES } from '../lib/api';
 
 const COMPANIES = [
-  { name: 'vodafone', logo: '◉' },
-  { name: 'intel', logo: 'intel' },
-  { name: 'TESLA', logo: 'TESLA' },
-  { name: 'AMD', logo: 'AMD' },
-  { name: 'Talkit', logo: 'Talkit' },
+  { name: 'vodafone'},
+  { name: 'intel'},
+  { name: 'TESLA'},
+  { name: 'AMD'},
+  { name: 'Talkit'},
 ];
 
 const POPULAR_SEARCHES = ['UI Designer', 'UX Researcher', 'Android', 'Admin'];
@@ -69,16 +69,13 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* ── HERO SECTION ── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-navy via-primary-900 to-navy">
-        <Navbar />
-
-        {/* Mobile background improvement */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-600/20 via-transparent to-transparent pointer-events-none md:from-transparent" />
+      <Navbar />
+      <section className="relative overflow-hidden bg-navy">
 
         {/* Decorative circles */}
-        <div className="hero-decoration w-96 h-96 -top-24 -right-24 opacity-20 hidden sm:block" style={{background:'radial-gradient(circle,#7C6FF7,transparent)'}} />
-        <div className="bottom-0 w-64 h-64 hero-decoration left-1/3 opacity-10 hidden sm:block" style={{background:'radial-gradient(circle,#4F3FF0,transparent)'}} />
-        <div className="absolute right-0 w-1/2 h-full top-32 opacity-5 hidden sm:block">
+        <div className="hero-decoration w-96 h-96 -top-24 -right-24 opacity-20" style={{background:'radial-gradient(circle,#7C6FF7,transparent)'}} />
+        <div className="bottom-0 w-64 h-64 hero-decoration left-1/3 opacity-10" style={{background:'radial-gradient(circle,#4F3FF0,transparent)'}} />
+        <div className="absolute right-0 w-1/2 h-full top-32 opacity-5">
           <div className="w-full h-full bg-gradient-to-l from-primary to-transparent" />
         </div>
 
@@ -86,12 +83,12 @@ export default function HomePage() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             {/* Left content */}
             <div>
-              <h1 className="mb-6 text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+              <h1 className="mb-6 text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
                 Discover<br />
                 more than<br />
                 <span className="text-primary-300 underline-animated">5000+ Jobs</span>
               </h1>
-              <p className="max-w-md mb-8 text-sm sm:text-base leading-relaxed text-white/60 lg:text-lg">
+              <p className="max-w-md mb-8 text-base leading-relaxed text-white/60 lg:text-lg">
                 Great platform for the job seeker that searching for new career heights and passionate about startups.
               </p>
 
@@ -186,7 +183,7 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-16">
             {COMPANIES.map(c => (
               <span key={c.name} className="text-lg font-bold tracking-widest text-gray-300 transition-colors cursor-default lg:text-xl hover:text-gray-500">
-                {c.name.toUpperCase()}
+                <img src={`./Landing Page/Company/${c.name}.png`} alt={c.name} className="object-contain w-40 h-8" onError={(e) => e.target.style.display = 'none'} />
               </span>
             ))}
           </div>

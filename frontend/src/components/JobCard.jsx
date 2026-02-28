@@ -6,30 +6,30 @@ export function JobCard({ job }) {
 
   return (
     <Link href={`/jobs/${job._id}`}>
-      <div className="job-card h-full flex flex-col gap-4">
+      <div className="flex flex-col h-full gap-4 job-card">
         {/* Header */}
         <div className="flex items-start justify-between">
           {/* Company logo */}
-          <div className={`w-12 h-12 ${bgColor} rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md flex-shrink-0 overflow-hidden`}>
+          <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md flex-shrink-0 overflow-hidden`}>
             {job.companyLogo ? (
-              <img src={job.companyLogo} alt={job.company} className="w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+              <img src={job.companyLogo} alt={job.company} className="object-cover w-full h-full" onError={(e) => e.target.style.display = 'none'} />
             ) : (
               job.company[0].toUpperCase()
             )}
           </div>
-          <span className="text-xs font-semibold text-gray-500 border border-gray-200 px-3 py-1 rounded-full">
+          <span className="px-3 py-1 text-xs font-semibold text-gray-500 border border-gray-200 rounded-full">
             {job.type}
           </span>
         </div>
 
         {/* Title & company */}
         <div>
-          <h3 className="font-bold text-dark text-base mb-1 line-clamp-1">{job.title}</h3>
-          <p className="text-gray-500 text-sm">{job.company} • {job.location}</p>
+          <h3 className="mb-1 text-base font-bold text-dark line-clamp-1">{job.title}</h3>
+          <p className="text-sm text-gray-500">{job.company} • {job.location}</p>
         </div>
 
         {/* Description */}
-        <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 flex-1">
+        <p className="flex-1 text-sm leading-relaxed text-gray-400 line-clamp-2">
           {job.description}
         </p>
 
@@ -51,11 +51,11 @@ export function JobListItem({ job }) {
 
   return (
     <Link href={`/jobs/${job._id}`}>
-      <div className="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-100 hover:shadow-card-hover hover:border-primary-100 transition-all duration-200 cursor-pointer">
+      <div className="flex items-center gap-4 p-4 transition-all duration-200 bg-white border border-gray-100 cursor-pointer rounded-xl hover:shadow-card-hover hover:border-primary-100">
         {/* Logo */}
-        <div className={`w-11 h-11 ${bgColor} rounded-xl flex items-center justify-center text-white font-bold text-base flex-shrink-0 overflow-hidden`}>
+        <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-white font-bold text-base flex-shrink-0 overflow-hidden`}>
           {job.companyLogo ? (
-            <img src={job.companyLogo} alt={job.company} className="w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+            <img src={job.companyLogo} alt={job.company} className="object-cover w-full h-full" onError={(e) => e.target.style.display = 'none'} />
           ) : (
             job.company[0].toUpperCase()
           )}
@@ -64,7 +64,7 @@ export function JobListItem({ job }) {
         {/* Info */}
         <div className="flex-1 min-w-0">
           <h3 className="font-bold text-dark text-sm mb-0.5 truncate">{job.title}</h3>
-          <p className="text-gray-500 text-xs">{job.company} • {job.location}</p>
+          <p className="text-xs text-gray-500">{job.company} • {job.location}</p>
         </div>
 
         {/* Tags */}

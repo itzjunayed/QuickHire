@@ -20,9 +20,11 @@ export default function JobsPage() {
     category: searchParams.get('category') || '',
     location: searchParams.get('location') || '',
     type: searchParams.get('type') || '',
+    company: searchParams.get('company') || '',
     page: 1,
   });
   const [searchInput, setSearchInput] = useState(filters.search);
+  const [companyInput, setCompanyInput] = useState(filters.company);
 
   const fetchJobs = useCallback(async (params) => {
     setLoading(true);
@@ -52,11 +54,12 @@ export default function JobsPage() {
   };
 
   const clearFilters = () => {
-    setFilters({ search: '', category: '', location: '', type: '', page: 1 });
+    setFilters({ search: '', category: '', location: '', type: '', company: '', page: 1 });
     setSearchInput('');
+    setCompanyInput('');
   };
 
-  const hasFilters = filters.search || filters.category || filters.location || filters.type;
+  const hasFilters = filters.search || filters.category || filters.location || filters.type || filters.company;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -154,6 +157,24 @@ export default function JobsPage() {
                 </div>
               </div>
 
+              {/* Company */}
+              <div className="mb-6">
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Company</h4>
+                <input
+                  type="text"
+                  placeholder="e.g. Google, Microsoft"
+                  value={companyInput}
+                  onChange={e => setCompanyInput(e.target.value)}
+                  onBlur={e => setFilter('company', e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      setFilter('company', companyInput);
+                    }
+                  }}
+                  className="input-field text-sm"
+                />
+              </div>
+
               {/* Location */}
               <div>
                 <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Location</h4>
@@ -183,6 +204,12 @@ export default function JobsPage() {
                   <span className="flex items-center gap-1.5 bg-primary-50 text-primary text-xs font-semibold px-3 py-1.5 rounded-full">
                     {filters.type}
                     <button onClick={() => setFilter('type', '')} className="hover:opacity-60">×</button>
+                  </span>
+                )}
+                {filters.company && (
+                  <span className="flex items-center gap-1.5 bg-primary-50 text-primary text-xs font-semibold px-3 py-1.5 rounded-full">
+                    🏢 {filters.company}
+                    <button onClick={() => { setFilter('company', ''); setCompanyInput(''); }} className="hover:opacity-60">×</button>
                   </span>
                 )}
                 {filters.location && (

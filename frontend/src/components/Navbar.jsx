@@ -28,12 +28,12 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`w-full z-50 ${isHeroPage ? 'absolute top-0 left-0' : 'sticky top-0 bg-white shadow-sm border-b border-gray-100'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className={`w-full z-50 sticky top-0 ${isHeroPage ? 'bg-navy' : ' bg-white shadow-sm border-b border-gray-100'}`}>
+      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+            <div className="flex items-center justify-center w-8 h-8 transition-transform rounded-full shadow-md bg-primary group-hover:scale-105">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                 <circle cx="9" cy="9" r="7" stroke="white" strokeWidth="1.5" />
                 <circle cx="9" cy="9" r="3" fill="white" />
@@ -45,7 +45,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="items-center hidden gap-8 md:flex">
             <Link
               href="/jobs"
               className={`font-medium text-sm transition-colors hover:text-primary ${
@@ -65,12 +65,22 @@ export default function Navbar() {
           </div>
 
           {/* Auth Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="items-center hidden gap-3 md:flex">
             {user ? (
               <div className="flex items-center gap-3">
                 <span className={`text-sm font-medium ${isHeroPage ? 'text-white' : 'text-gray-700'}`}>
                   {user.fullName}
                 </span>
+                {user.userType === 'employer' && (
+                  <Link
+                    href="/admin"
+                    className={`font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors ${
+                      isHeroPage ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-primary-50 text-primary hover:bg-primary-100'
+                    }`}
+                  >
+                    Admin
+                  </Link>
+                )}
                 <button
                   onClick={handleLogout}
                   className={`font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors ${
@@ -118,10 +128,10 @@ export default function Navbar() {
         {menuOpen && (
           <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out`}>
             <div className={`pb-4 flex flex-col gap-3 pt-4 border-t ${isHeroPage ? 'border-white/20 text-white' : 'border-gray-100 text-gray-700'} animate-in fade-in slide-in-from-top-2`}>
-              <Link href="/jobs" className="font-medium py-2 hover:text-primary transition-colors" onClick={() => setMenuOpen(false)}>
+              <Link href="/jobs" className="py-2 font-medium transition-colors hover:text-primary" onClick={() => setMenuOpen(false)}>
                 Find Jobs
               </Link>
-              <Link href="/companies" className="font-medium py-2 hover:text-primary transition-colors" onClick={() => setMenuOpen(false)}>
+              <Link href="/companies" className="py-2 font-medium transition-colors hover:text-primary" onClick={() => setMenuOpen(false)}>
                 Browse Companies
               </Link>
               
@@ -129,9 +139,18 @@ export default function Navbar() {
                 {user ? (
                   <>
                     <div className="flex-1">
-                      <p className="text-xs font-medium mb-2">Logged in as</p>
+                      <p className="mb-2 text-xs font-medium">Logged in as</p>
                       <p className="text-sm font-semibold">{user.fullName}</p>
                     </div>
+                    {user.userType === 'employer' && (
+                      <Link href="/admin" onClick={() => setMenuOpen(false)} className="flex-1">
+                        <button className={`w-full font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors ${
+                          isHeroPage ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-primary-50 text-primary hover:bg-primary-100'
+                        }`}>
+                          Admin
+                        </button>
+                      </Link>
+                    )}
                     <button
                       onClick={handleLogout}
                       className={`flex-1 font-semibold text-sm px-4 py-2.5 rounded-lg border transition-colors ${
@@ -143,14 +162,14 @@ export default function Navbar() {
                   </>
                 ) : (
                   <>
-                    <Link href="/login" className="flex-1">
+                    <Link href="/login" className="flex-1" onClick={() => setMenuOpen(false)}>
                       <button className={`w-full font-semibold text-sm px-4 py-2.5 rounded-lg border transition-colors ${
                         isHeroPage ? 'border-white/30 text-white hover:bg-white/10' : 'border-current text-gray-700 hover:bg-gray-100'
                       }`}>
                         Login
                       </button>
                     </Link>
-                    <Link href="/signup" className="flex-1">
+                    <Link href="/signup" className="flex-1" onClick={() => setMenuOpen(false)}>
                       <button className="w-full bg-primary text-white font-semibold text-sm px-4 py-2.5 rounded-lg hover:bg-primary-600 transition-colors">
                         Sign Up
                       </button>
