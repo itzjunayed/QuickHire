@@ -243,8 +243,8 @@ export default function HomePage() {
                 </Link>
               </div>
               <div className="relative hidden lg:block h-96">
-                <img src="./Landing Page/CTA/pattern.png" alt="Post Job" className="absolute inset-0 object-contain w-full h-full" />
-                <img src="./Landing Page/CTA/person.png" alt="Post Job" className="absolute top-0 object-contain w-4/5" />
+                <img src="./Landing Page/CTA/Pattern.png" alt="Post Job" className="absolute inset-0 object-contain w-full h-full" />
+                <img src="./Landing Page/CTA/Person.png" alt="Post Job" className="absolute top-0 object-contain w-4/5" />
               </div>
             </div>
           </div>
